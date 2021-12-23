@@ -1,6 +1,8 @@
-#include "color.h"
-#include "ray.h"
-#include "vec3.h"
+#include "rtraytracinggem.h"
+
+//#include "color.h" // ??? why color.h has to be included ealier than ray.h and vec3.h
+//#include "ray.h"
+//#include "vec3.h"
 
 #include "sphere.h"
 #include "hittable_list.h"
@@ -10,7 +12,7 @@ color ray_color(const ray& r, const hittable_list& world)
 {
 	hit_record rec;
 
-	if (world.hit(r, 0, 100000, rec))
+	if (world.hit(r, 0, MAX_DOUBLE, rec))
 	{
 		return 0.5 * (rec.normal + color(1));
 		//return color(1, 0, 0);
