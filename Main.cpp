@@ -1,33 +1,22 @@
 #include "color.h"
 #include "ray.h"
 #include "vec3.h"
+#include "sphere.h"
 
 #include <iostream>
 
-double hit_sphere(const point3& center, double radius, const ray& r)
+color ray_color(const ray& r, const hittable& world)
 {
-	vec3 oc = r.origin() - center;
-	auto a = r.direction().length_squared();
-	auto half_b = dot(r.direction(), oc);
-	auto c = dot(oc, oc) - radius * radius;
-	auto discriminant = half_b * half_b - a * c;
+	hit_record rec;
 
-	if (discriminant < 0) return -1;
-	else return (-half_b - sqrt(discriminant)) / a;
-}
-
-color ray_color(const ray& r)
-{
-	point3 center = vec3(0, 0, -0.85);
-	auto t = hit_sphere(center, 0.5, r);
-	if (t > 0.0)
+	if (world.hit(r, 0, 100000, rec))
 	{
-		vec3 N = unit_vector(r.at(t) - center);
-		return 0.5 * (color(N.x() + 1, N.y() + 1, N.z() + 1));
+		return 0.5 * (rec.normal + color(1));
+		//return color(1, 0, 0);
 	}
 
 	vec3 unit_direction = unit_vector(r.direction());
-	t = 0.5 * (unit_direction.y() + 1.0);
+	double t = 0.5 * (unit_direction.y() + 1.0);
 	return (1.0 - t) * color(1.0) + t * color(0.5, 0.7, 1.0);
 }
 
@@ -57,11 +46,12 @@ int main()
 
 		for (int i = 0; i < image_width; i++)
 		{
+
 			auto u = double(i) / (image_width - 1);
 			auto v = double(j) / (image_height - 1);
 			ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-			color sky_color = ray_color(r);
-			write_color(std::cout, sky_color);
+			color color = ray_color(r, sphere(point3(0, 0, -1), 0.5));
+			write_color(std::cout, color);
 			//write_color(std::cout, color(1, 0, 0));
 		}
 	}
