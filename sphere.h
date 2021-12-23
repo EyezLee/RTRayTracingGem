@@ -21,9 +21,9 @@ class sphere : public hittable
 bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) const
 {
 	vec3 oc = r.origin() - center;
-	float a = r.direction().length_squared(); // dot product of the vector and itself: a * a * cos(0) = a^2
-	float half_b = dot(r.direction(), oc);
-	float c = oc.length_squared() - radius * radius;
+	double a = r.direction().length_squared(); // dot product of the vector and itself: a * a * cos(0) = a^2
+	double half_b = dot(r.direction(), oc);
+	double c = oc.length_squared() - radius * radius;
 
 	double discriminant = half_b * half_b - a * c;
 	if (discriminant < 0) return false;

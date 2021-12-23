@@ -1,11 +1,12 @@
 #include "color.h"
 #include "ray.h"
 #include "vec3.h"
-#include "sphere.h"
 
+#include "sphere.h"
+#include "hittable_list.h"
 #include <iostream>
 
-color ray_color(const ray& r, const hittable& world)
+color ray_color(const ray& r, const hittable_list& world)
 {
 	hit_record rec;
 
@@ -37,6 +38,11 @@ int main()
 	auto vertical = vec3(0, viewport_height, 0);
 	auto lower_left_corner = origin - horizontal / 2 - vertical / 2 - vec3(0, 0, focal_length);
 
+	// world
+	hittable_list world;
+	world.add(make_shared<sphere>(point3(0.25, 0, -1), 0.5));
+	world.add(make_shared <sphere>(point3(-0.25, 0.2, -0.85), 0.5));
+
 	// PPM render 
 	std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
@@ -47,10 +53,10 @@ int main()
 		for (int i = 0; i < image_width; i++)
 		{
 
-			auto u = double(i) / (image_width - 1);
-			auto v = double(j) / (image_height - 1);
+			auto u = double(i) / (image_width - 1.0);
+			auto v = double(j) / (image_height - 1.0);
 			ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-			color color = ray_color(r, sphere(point3(0, 0, -1), 0.5));
+			color color = ray_color(r, world);
 			write_color(std::cout, color);
 			//write_color(std::cout, color(1, 0, 0));
 		}

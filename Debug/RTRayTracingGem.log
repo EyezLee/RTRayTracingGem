@@ -1,5 +1,2 @@
 ﻿  Main.cpp
-C:\Users\Limingtong\Documents\Teamlab\RTRayTracingGem\RTRayTracingGem\sphere.h(24,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Limingtong\Documents\Teamlab\RTRayTracingGem\RTRayTracingGem\sphere.h(25,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Limingtong\Documents\Teamlab\RTRayTracingGem\RTRayTracingGem\sphere.h(26,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   RTRayTracingGem.vcxproj -> C:\Users\Limingtong\Documents\Teamlab\RTRayTracingGem\Debug\RTRayTracingGem.exe
