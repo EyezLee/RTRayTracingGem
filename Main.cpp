@@ -30,7 +30,7 @@ int main()
 	// camera
 	auto viewport_height = 3.0;
 	auto viewport_width = viewport_height * aspect_ratio;
-	auto focal_length = 1;
+	auto focal_length = 1.5;
 
 	auto origin = point3(0);
 	auto horizontal = vec3(viewport_width, 0, 0);
