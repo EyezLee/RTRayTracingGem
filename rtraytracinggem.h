@@ -4,6 +4,7 @@
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <cstdlib>
 
 // usings
 using std::shared_ptr;
@@ -20,9 +21,11 @@ inline double degrees_to_radians(double degrees)
 	return degrees * PI / 180.0;
 }
 
+
+
 // common headers
-#include "color.h"
 #include "ray.h"
 #include "vec3.h"
+#include "color.h"
 
 #endif

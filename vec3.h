@@ -1,8 +1,6 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-#include "color.h"
-#include "vec3.h"
 #include <iostream>
 
 using std::sqrt;
