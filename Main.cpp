@@ -26,16 +26,9 @@ int main()
 	const auto aspect_ratio = 16.0 / 9.0;
 	const int image_width = 400;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
-
+	const int samples_per_pixel = 100;
 	// camera
-	auto viewport_height = 3.0;
-	auto viewport_width = viewport_height * aspect_ratio;
-	auto focal_length = 1.5;
-
-	auto origin = point3(0);
-	auto horizontal = vec3(viewport_width, 0, 0);
-	auto vertical = vec3(0, viewport_height, 0);
-	auto lower_left_corner = origin - horizontal / 2 - vertical / 2 - vec3(0, 0, focal_length);
+	camera cam;
 
 	// world
 	hittable_list world;
@@ -52,11 +45,15 @@ int main()
 		for (int i = 0; i < image_width; i++)
 		{
 
-			auto u = double(i) / (image_width - 1.0);
-			auto v = double(j) / (image_height - 1.0);
-			ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-			color color = ray_color(r, world);
-			write_color(std::cout, color);
+			color pixel_color = color(0);
+			
+			for (int s = 0; s < samples_per_pixel; s++)
+			{
+				auto u = (i + random_double()) / (image_width - 1.0);
+				auto v = (j + random_double()) / (image_height - 1.0);
+				pixel_color += ray_color(cam.get_ray(u, v), world);
+			}
+			write_color(std::cout, pixel_color, samples_per_pixel);
 			//write_color(std::cout, color(1, 0, 0));
 		}
 	}
