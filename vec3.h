@@ -118,4 +118,25 @@ inline vec3 unit_vector(vec3 v)
 	return v / v.length();
 }
 
+inline vec3 random()
+{
+	return vec3(random_double(), random_double(), random_double());
+}
+
+inline vec3 random(double min, double max)
+{
+	return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+}
+
+inline vec3 random_in_unit_sphere(double min, double max)
+{
+	vec3 p = random(min, max);
+	while (true)
+	{
+		if (p.length_squared() >= 1) continue;
+
+		return p;
+	}
+}
+
 #endif

@@ -46,4 +46,5 @@ inline double clamp(double x, double min, double max)
 #include "color.h"
 #include "camera.h"
 
+
 #endif

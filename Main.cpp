@@ -33,7 +33,7 @@ int main()
 	// world
 	hittable_list world;
 	world.add(make_shared<sphere>(point3(0.25, 0, -1), 0.5));
-	world.add(make_shared <sphere>(point3(-0.25, 0.2, -0.85), 0.5));
+	world.add(make_shared <sphere>(point3(0, -100.5, -1), 100));
 
 	// PPM render 
 	std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
