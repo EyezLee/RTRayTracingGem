@@ -128,11 +128,12 @@ inline vec3 random(double min, double max)
 	return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 }
 
-inline vec3 random_in_unit_sphere(double min, double max)
+inline vec3 random_in_unit_sphere()
 {
-	vec3 p = random(min, max);
+	// cube rejection method		
 	while (true)
 	{
+		vec3 p = random(-1, 1);
 		if (p.length_squared() >= 1) continue;
 
 		return p;

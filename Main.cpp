@@ -5,14 +5,17 @@
 #include "hittable_list.h"
 #include <iostream>
 
-color ray_color(const ray& r, const hittable_list& world)
+color ray_color(const ray& r, const hittable_list& world, int depth)
 {
 	hit_record rec;
 
+	if (depth <= 0) return color(0);
+
 	if (world.hit(r, 0, MAX_DOUBLE, rec))
 	{
-		return 0.5 * (rec.normal + color(1));
-		//return color(1, 0, 0);
+		//return 0.5 * (rec.normal + color(1));
+		ray diffuse_ray = ray(rec.p, rec.normal + random_in_unit_sphere()); // randomize ray shooting from hit point p
+		return 0.5 * ray_color(diffuse_ray, world, depth-1);
 	}
 
 	vec3 unit_direction = unit_vector(r.direction());
@@ -27,6 +30,8 @@ int main()
 	const int image_width = 400;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
 	const int samples_per_pixel = 100;
+	const int ray_bounce_depth = 10;
+
 	// camera
 	camera cam;
 
@@ -51,7 +56,7 @@ int main()
 			{
 				auto u = (i + random_double()) / (image_width - 1.0);
 				auto v = (j + random_double()) / (image_height - 1.0);
-				pixel_color += ray_color(cam.get_ray(u, v), world);
+				pixel_color += ray_color(cam.get_ray(u, v), world, ray_bounce_depth);
 			}
 			write_color(std::cout, pixel_color, samples_per_pixel);
 			//write_color(std::cout, color(1, 0, 0));
