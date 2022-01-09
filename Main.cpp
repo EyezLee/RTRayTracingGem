@@ -10,7 +10,7 @@ color ray_color(const ray& r, const hittable_list& world, int depth)
 
 	if (depth <= 0) return color(0);
 
-	if (world.hit(r, 0, MAX_DOUBLE, rec))
+	if (world.hit(r, 0.001, MAX_DOUBLE, rec))
 	{
 		//return 0.5 * (rec.normal + color(1));
 		ray diffuse_ray = ray(rec.p, rec.normal + random_in_unit_sphere()); // randomize ray shooting from hit point p
