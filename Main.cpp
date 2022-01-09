@@ -1,6 +1,5 @@
 #include "rtraytracinggem.h"
 
-
 #include "sphere.h"
 #include "hittable_list.h"
 #include <iostream>
@@ -30,7 +29,7 @@ int main()
 	const int image_width = 400;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
 	const int samples_per_pixel = 100;
-	const int ray_bounce_depth = 10;
+	const int ray_bounce_depth = 50;
 
 	// camera
 	camera cam;
