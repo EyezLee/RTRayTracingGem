@@ -128,6 +128,7 @@ inline vec3 random(double min, double max)
 	return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 }
 
+// diffuse - random distribution 
 inline vec3 random_in_unit_sphere()
 {
 	// cube rejection method		
@@ -139,5 +140,21 @@ inline vec3 random_in_unit_sphere()
 		return p;
 	}
 }
+
+// diffuse - Lambertian distribution 
+inline vec3 random_on_unit_sphere()
+{
+	return unit_vector(random_in_unit_sphere());
+}
+
+// diffuse - intuitive unit hemisphere distribution
+inline vec3 random_in_hemisphere(const vec3& normal)
+{
+	vec3 vec_in_unit_sphere = random_in_unit_sphere();
+	if (dot(vec_in_unit_sphere, normal) > 0) // same direction with normal
+		return vec_in_unit_sphere;
+	else return -vec_in_unit_sphere;
+}
+
 
 #endif

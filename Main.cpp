@@ -13,7 +13,9 @@ color ray_color(const ray& r, const hittable_list& world, int depth)
 	if (world.hit(r, 0.001, MAX_DOUBLE, rec))
 	{
 		//return 0.5 * (rec.normal + color(1));
-		ray diffuse_ray = ray(rec.p, rec.normal + random_in_unit_sphere()); // randomize ray shooting from hit point p
+		//ray diffuse_ray = ray(rec.p, rec.normal + random_in_unit_sphere());
+		//ray diffuse_ray = ray(rec.p, rec.normal + random_on_unit_sphere()); // more uniformly distributed than the first methods
+		ray diffuse_ray = ray(rec.p, random_in_hemisphere(rec.normal)); // uniform distribution on p, without corresponding to normal 
 		return 0.5 * ray_color(diffuse_ray, world, depth-1);
 	}
 
