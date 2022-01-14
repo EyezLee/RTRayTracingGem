@@ -1,13 +1,14 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
-#include "ray.h"
+#include "rtraytracinggem.h"
 
 struct hit_record
 {
 	point3 p;
 	double t;
 	vec3 normal;
+	shared_ptr<material> mat_ptr;
 	
 	// normal facing inward or outward
 	bool front_face;

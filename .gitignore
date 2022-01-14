@@ -31,3 +31,11 @@
 *.out
 *.app
 *.opendb
+x64/Debug/vc143.pdb
+x64/Debug/vc143.idb
+x64/Debug/RTRayTracingGem.pdb
+x64/Debug/RTRayTracingGem.ilk
+x64/Debug/image0.ppm
+x64/Debug/image.ppm
+.vs/RTRayTracingGem/v17/ipch/AutoPCH/ef04b481f09c56b7/MAIN.ipch
+.vs/RTRayTracingGem/v17/Browse.VC.db

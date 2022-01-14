@@ -45,6 +45,6 @@ inline double clamp(double x, double min, double max)
 #include "vec3.h"
 #include "color.h"
 #include "camera.h"
-
+#include "material.h"
 
 #endif

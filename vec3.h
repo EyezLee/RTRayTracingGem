@@ -56,6 +56,12 @@ class vec3
 		{
 			return sqrt(length_squared());
 		}
+
+		bool near_zero()
+		{
+			const auto s = 1e-8;
+			return (fabs(e[0] < s) && fabs(e[1] < s) && fabs(e[2] < s));
+		}
 };
 
 // type alias
@@ -155,6 +161,5 @@ inline vec3 random_in_hemisphere(const vec3& normal)
 		return vec_in_unit_sphere;
 	else return -vec_in_unit_sphere;
 }
-
 
 #endif
