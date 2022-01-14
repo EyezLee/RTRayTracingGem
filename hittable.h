@@ -3,6 +3,10 @@
 
 #include "rtraytracinggem.h"
 
+// forward declaration
+// circular reference: material - hittable 
+class material;
+
 struct hit_record
 {
 	point3 p;

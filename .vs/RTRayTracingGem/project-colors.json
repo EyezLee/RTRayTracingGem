@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "0a45e43d-7780-4503-b799-371d03590cf2": {
+      "ProjectGuid": "0a45e43d-7780-4503-b799-371d03590cf2",
+      "DisplayName": "RTRayTracingGem",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

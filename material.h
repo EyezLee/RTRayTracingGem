@@ -6,31 +6,52 @@
 // forward declaration
 struct hit_record;
 
-class material
-{
-public:
-	virtual bool scatter(const ray& ray_in, const hit_record& rec, color& attenuation, ray& scatter) const = 0;
+class material {
+    public:
+        virtual bool scatter(
+            const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered
+        ) const = 0;
 };
 
-class lambertian : material
+
+#endif // !MATERIAL_H
+
+
+
+class lambertian : public material
 {
 public:
 	color albedo;
 
 public:
-	lambertian(const color& color) : albedo(color) {}
+	lambertian(const color& c) : albedo(c) {}
 
-	virtual bool scatter(const ray& ray_in, const hit_record& rec, color& attenuation, ray& scatter) const override
+	virtual bool scatter(const ray& ray_in, const hit_record& rec, color& attenuation, ray& scattered) const override
 	{
 		auto scatter_dir = rec.normal + random_on_unit_sphere();
-		if (scatter_dir.near_zero())
-			scatter_dir = rec.normal;
+		//if (scatter_dir.near_zero())
+		//	scatter_dir = rec.normal;
 
-		scatter = ray(rec.p, scatter_dir);
-		attenuation = albedo;
+		//scatter_ray = ray(rec.p, scatter_dir);
+		//attenuation = albedo;
 
 		return true;
 	}
 };
 
-#endif // !MATERIAL_H
+
+//class metal : material
+//{
+//public:
+//	color albedo;
+//	double fuzz;
+//
+//public:
+//	metal(const color& color, double f) : albedo(color), fuzz(f) {}
+//
+//	virtual bool scatter(const ray& ray_in, const hit_record& rec, color& attenuation, ray& scatter) const override
+//	{
+//	}
+//
+//};
+
