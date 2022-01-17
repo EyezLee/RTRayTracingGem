@@ -47,12 +47,12 @@ public:
 	double fuzz;
 
 public:
-	metal(const color& color, double f) : albedo(color), fuzz(f) {}
+	metal(const color& color, double f) : albedo(color), fuzz(f > 1 ? 1 : f) {}
 
 	virtual bool scatter(const ray& ray_in, const hit_record& rec, color& attenuation, ray& scattered) const override
 	{
 		vec3 reflected = reflect(unit_vector(ray_in.direction()), rec.normal);
-		scattered = ray(rec.p, reflected);
+		scattered = ray(rec.p, reflected + fuzz + random_in_unit_sphere());
 		attenuation = albedo;
 		return(dot(reflected, rec.normal) > 0);
 	}

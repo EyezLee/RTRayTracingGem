@@ -15,7 +15,7 @@ public:
 	camera()
 	{
 		auto aspect_ratio = 16.0 / 9.0;
-		auto viewport_height = 8.0;
+		auto viewport_height = 2.0;
 		auto viewport_width = viewport_height * aspect_ratio;
 		auto focal_length = 1.0;
 
