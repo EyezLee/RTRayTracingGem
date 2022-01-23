@@ -59,3 +59,44 @@ public:
 
 };
 
+class dielectric : public material
+{
+public:
+	double ir; // index of refraction
+
+public:
+	dielectric(const double index_of_refraction) : ir(index_of_refraction) {}
+
+	virtual bool scatter(const ray& ray_in, const hit_record& rec, color& attenuation, ray& scattered) const override
+	{
+		attenuation = color(1);
+
+		auto refraction_ratio = rec.front_face ? (1 / ir) : ir;
+
+		auto unit_ray_in_dir = unit_vector(ray_in.direction());
+		auto cos_theta = fmin(dot(-unit_ray_in_dir, rec.normal), 1.0);
+		auto sin_theta = sqrt(1 - cos_theta * cos_theta);
+
+		// Snell's law of refraction: sin_theta_prime / eta_prime = sin_theta / eta
+		// if sin_theta_prime > 1, means refraction is invalid, thus reflect
+		bool cannot_refract = refraction_ratio * sin_theta > 1; 
+		
+		vec3 scatter_dir;
+
+		//if (cannot_refract)
+		//{
+		//	// reflect
+		//	scatter_dir = reflect(unit_ray_in_dir, rec.normal);
+		//}
+		//else
+		{
+			// refract
+			scatter_dir = refract(unit_ray_in_dir, rec.normal, refraction_ratio);
+		}
+
+		scattered = ray(rec.p, scatter_dir);
+
+		return true;
+	}
+};
+
