@@ -64,6 +64,14 @@ class dielectric : public material
 public:
 	double ir; // index of refraction
 
+private:
+	static double fresnel_reflectance(double cos_theta, double ref_idx)
+	{
+		auto r0 = (1 - ref_idx) / (1 + ref_idx);
+		r0 *= r0;
+		return r0 + pow(1 - cos_theta, 5);
+	}
+
 public:
 	dielectric(const double index_of_refraction) : ir(index_of_refraction) {}
 
@@ -83,12 +91,12 @@ public:
 		
 		vec3 scatter_dir;
 
-		//if (cannot_refract)
-		//{
-		//	// reflect
-		//	scatter_dir = reflect(unit_ray_in_dir, rec.normal);
-		//}
-		//else
+		if (cannot_refract)
+		{
+			// reflect
+			scatter_dir = reflect(unit_ray_in_dir, rec.normal);
+		}
+		else
 		{
 			// refract
 			scatter_dir = refract(unit_ray_in_dir, rec.normal, refraction_ratio);
