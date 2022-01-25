@@ -12,12 +12,13 @@ private:
 	point3 lower_left_corner;
 
 public:
-	camera()
+	camera(double vfov, double aspect_ratio)
 	{
-		auto aspect_ratio = 16.0 / 9.0;
-		auto viewport_height = 2.0;
-		auto viewport_width = viewport_height * aspect_ratio;
 		auto focal_length = 1.0;
+		auto theta = degrees_to_radians(vfov);
+		auto half_h = tan(theta / 2) * focal_length;
+		auto viewport_height = 2.0 * half_h;
+		auto viewport_width = viewport_height * aspect_ratio;
 
 		origin = point3(0, 0, 0);
 		vertical = vec3(0, viewport_height, 0);
