@@ -12,7 +12,7 @@ private:
 	point3 lower_left_corner;
 
 public:
-	camera(double vfov, double aspect_ratio)
+	camera(double vfov, double aspect_ratio, const point3 look_from, const point3 look_at, vec3 up)
 	{
 		auto focal_length = 1.0;
 		auto theta = degrees_to_radians(vfov);
@@ -20,10 +20,14 @@ public:
 		auto viewport_height = 2.0 * half_h;
 		auto viewport_width = viewport_height * aspect_ratio;
 
-		origin = point3(0, 0, 0);
-		vertical = vec3(0, viewport_height, 0);
-		horizontal = vec3(viewport_width, 0, 0);
-		lower_left_corner = origin - vertical / 2.0 - horizontal / 2.0 - vec3(0, 0, focal_length);
+		auto cam_front = unit_vector(look_from - look_at);
+		auto cam_right = unit_vector(cross(up, cam_front));
+		auto cam_up = unit_vector(cross(cam_front, cam_right));
+
+		origin = look_from;
+		vertical = viewport_height * cam_up;
+		horizontal = viewport_width * cam_right;
+		lower_left_corner = origin - vertical / 2.0 - horizontal / 2.0 - cam_front * focal_length;
 	}
 
 	ray get_ray(double u, double v)

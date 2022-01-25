@@ -41,7 +41,7 @@ int main()
 	const int ray_bounce_depth = 50;
 
 	// camera
-	camera cam(45.0, aspect_ratio);
+	camera cam(90.0, aspect_ratio, point3(-2, 2, 0), point3(0, 0, -1), vec3(0, 1, 0));
 
 	// world
 	hittable_list world;
